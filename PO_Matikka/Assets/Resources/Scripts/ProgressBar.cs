@@ -20,51 +20,60 @@ public class ProgressBar : MonoBehaviour
     }
 #endif
 
-    public int Max = 100;
-    public int Min = 0;
-
+    public float Max = 100;
+    public float Min = 0;
     [SerializeField]
-    private int current = 10;
+    private float current = 10;
 
     //EASINGIT TÄÄLLLÄ
     [SerializeField]
     EasingFunction.Ease EasingType = EasingFunction.Ease.Linear;
-
+    private EasingFunction.Function EaseFunction;
     public Image FillImage;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    public void setCurrent(int curr)
+
+
+    public void setCurrent(int curr) //Current
     {
         current = curr;
         setFIll();
     }
-    public void setMaximum(int max)
+    public void setMaximum(int max) //Maximum
     {
-        max = Max;
+        Max = max;
     }
-    public void setMinimum(int min)
+    public void setMinimum(int min) //Minimum
     {
-        min = Min;
+        Min = min;
     }
 
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        EaseFunction = EasingFunction.GetEasingFunction(EasingType);
+    }
+    public void setFraction(float frac) // SET FRACTION
+    {
+        current = (float) frac*(Max-Min);
+        // Debug.Log(current);
+        setFIll();
+    }
     private void setFIll()
     {
-        if (FillImage != null)
-        {
-            //FillImage.transform.localscale.x = current;
+
+        //FillImage.transform.localscale.x = current;
             Vector3 my_scale = FillImage.transform.localScale;
-            my_scale.x = (current - Min) / (float)(Max - Min);
+            my_scale.x = EaseFunction(0f, 1f, ((current - Min) / (Max - Min)));
             FillImage.transform.localScale = my_scale;
 
-        }
+        // if (FillImage != null)
+        // {
+        // }
     }
 
     // Update is called once per frame
-    void Update()
-    {
-       setFIll();
-    }
+    // void Update()
+    // {
+    //    setFIll();
+    // }
 }
