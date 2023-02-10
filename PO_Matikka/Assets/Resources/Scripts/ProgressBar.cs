@@ -60,20 +60,10 @@ public class ProgressBar : MonoBehaviour
     }
     private void setFIll()
     {
-
-        //FillImage.transform.localscale.x = current;
             Vector3 my_scale = FillImage.transform.localScale;
             my_scale.x = EaseFunction(0f, 1f, ((current - Min) / (Max - Min)));
             FillImage.transform.localScale = my_scale;
-
-        // if (FillImage != null)
-        // {
-        // }
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-    //    setFIll();
-    // }
+   
 }
