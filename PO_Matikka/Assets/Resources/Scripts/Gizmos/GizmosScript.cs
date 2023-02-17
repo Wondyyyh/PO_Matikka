@@ -18,7 +18,7 @@ public class GizmosScript : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(new Vector2(-3, 0), new Vector2(3, 0));
         Gizmos.color = Color.black;
-        Gizmos.DrawLine(new Vector2(0, 0), target.position);
+        Gizmos.DrawLine(transform.position, target.position);
 
     }
 
