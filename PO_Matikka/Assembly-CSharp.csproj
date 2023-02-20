@@ -59,13 +59,14 @@
     <Compile Include="Assets\Resources\Scripts\EasingFUnction.cs" />
     <Compile Include="Assets\Resources\Scripts\ProgressBar.cs" />
     <Compile Include="Assets\Resources\Scripts\Animate.cs" />
+    <Compile Include="Assets\Resources\Scripts\Gizmos\CrossProduct.cs" />
+    <Compile Include="Assets\Resources\Scripts\Gizmos\LocalCordinate.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\RedDotGreenDot.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\LookAtScript.cs" />
+    <Compile Include="Assets\Resources\Scripts\Gizmos\WorldToLocal.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\GizmosScript.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\Vectors.cs" />
-    <Compile Include="Assets\LocalCordinate.cs" />
-    <Compile Include="Assets\Resources\Scripts\Gizmos\WorldToLocal.cs" />
-    <Compile Include="Assets\CrossProduct.cs" />
+    <Compile Include="Assets\Resources\Scripts\Gizmos\RayObjPlacing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
