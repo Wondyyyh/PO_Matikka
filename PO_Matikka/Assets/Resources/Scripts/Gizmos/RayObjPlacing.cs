@@ -16,7 +16,18 @@ public class RayObjPlacing : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        xAxel= hit.point + transform.right;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.white);
+            Debug.Log("Did Hit" + hit.point);
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.magenta);
+            Debug.Log("Did not Hit");
+        }
+
+        xAxel = hit.point + transform.right;
         yAxel= hit.point + hit.normal;
         Debug.Log(xAxel + "  " + yAxel);
 
@@ -28,42 +39,25 @@ public class RayObjPlacing : MonoBehaviour
         DrawVector(hit.point, xAxel, Color.red);
         DrawVector(hit.point, yAxel, Color.green);
 
+        // Crossproduction vector
         cross_prod = Vector3.Cross(xNorm, yNorm);
         DrawVector(hit.point, hit.point + cross_prod, Color.black);
-
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-            Debug.Log("Did Hit" + hit.point);
-            found = true;
-        }
-        else
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-            Debug.Log("Did not Hit");
-        }
     }
 
     void Update()
-    {
-        
+    {       
         if (Input.GetKeyDown("space"))
         {
             PlaceObject();
-        }
-          
+        }  
     }
 
     void PlaceObject()
     {
-        Debug.Log("Instantiated");
-        SurfaceLookAtROt.y = hit.point.y + cross_prod.y;
-        SurfaceLookAtROt.x = hit.point.x + hit.transform.right.x;
-        SurfaceLookAtROt.z = hit.point.z + hit.normal.z;
-        testi = Quaternion.LookRotation(new Vector3(0,0,SurfaceLookAtROt.z), new Vector3(0,SurfaceLookAtROt.y, 0));
-        Quaternion asia = new Quaternion(SurfaceLookAtROt.x, SurfaceLookAtROt.y, 0, 0);
-        Debug.Log("Rotation set" + SurfaceLookAtROt);
+        testi = Quaternion.LookRotation(cross_prod, hit.normal);
+        Debug.Log("Rotation set" + testi);
         Instantiate(ObjToPlace,hit.point, testi);
+        Debug.Log("Instantiated");
     }
 
     private void DrawVector(Vector3 from, Vector3 to, Color c)
