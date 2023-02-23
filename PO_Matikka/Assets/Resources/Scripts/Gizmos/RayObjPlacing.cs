@@ -8,15 +8,17 @@ public class RayObjPlacing : MonoBehaviour
     public GameObject ObjToPlace;
     RaycastHit hit;
     bool found;
-    Vector3 xAxel;
-    Vector3 yAxel;
-    Vector3 cross_prod;
-    Quaternion SurfaceLookAtROt;
+    public Vector3 xAxel;
+    public Vector3 yAxel;
+    public Vector3 cross_prod;
+    public Vector3 SurfaceLookAtROt;
+    public Quaternion testi;
 
     private void OnDrawGizmos()
     {
         xAxel= hit.point + transform.right;
         yAxel= hit.point + hit.normal;
+        Debug.Log(xAxel + "  " + yAxel);
 
         // Normalize vectors
         Vector3 xNorm = (xAxel - hit.point).normalized;
@@ -29,37 +31,39 @@ public class RayObjPlacing : MonoBehaviour
         cross_prod = Vector3.Cross(xNorm, yNorm);
         DrawVector(hit.point, hit.point + cross_prod, Color.black);
 
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+            Debug.Log("Did Hit" + hit.point);
+            found = true;
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+            Debug.Log("Did not Hit");
+        }
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        if (!found)
+        
+        if (Input.GetKeyDown("space"))
         {
-            // Does the ray intersect any objects excluding the player layer
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
-            {
-                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-                Debug.Log("Did Hit" + hit.point);
-                found = true;
-                SurfaceLookAtROt = Quaternion.LookRotation(hit.point,hit.point+cross_prod);
-                Debug.Log("Rotation set" + SurfaceLookAtROt);
-                PlaceObject();
-
-            }
-            else
-            {
-                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-                Debug.Log("Did not Hit");
-            }
+            PlaceObject();
         }
-
           
     }
 
     void PlaceObject()
     {
         Debug.Log("Instantiated");
-        Instantiate(ObjToPlace, hit.point, SurfaceLookAtROt);
+        SurfaceLookAtROt.y = hit.point.y + cross_prod.y;
+        SurfaceLookAtROt.x = hit.point.x + hit.transform.right.x;
+        SurfaceLookAtROt.z = hit.point.z + hit.normal.z;
+        testi = Quaternion.LookRotation(new Vector3(0,0,SurfaceLookAtROt.z), new Vector3(0,SurfaceLookAtROt.y, 0));
+        Quaternion asia = new Quaternion(SurfaceLookAtROt.x, SurfaceLookAtROt.y, 0, 0);
+        Debug.Log("Rotation set" + SurfaceLookAtROt);
+        Instantiate(ObjToPlace,hit.point, testi);
     }
 
     private void DrawVector(Vector3 from, Vector3 to, Color c)
