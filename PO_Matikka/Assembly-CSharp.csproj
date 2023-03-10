@@ -66,8 +66,10 @@
     <Compile Include="Assets\Resources\Scripts\Gizmos\LookAtScript.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\WorldToLocal.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\GizmosScript.cs" />
-    <Compile Include="Assets\Resources\Scripts\Gizmos\Vectors.cs" />
     <Compile Include="Assets\Resources\Scripts\BezierPath.cs" />
+    <Compile Include="Assets\Resources\Scripts\Gizmos\Vectors.cs" />
+    <Compile Include="Assets\Resources\Scripts\Meshes\SphereMesh.cs" />
+    <Compile Include="Assets\Resources\Scripts\Meshes\SimpleMesh.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

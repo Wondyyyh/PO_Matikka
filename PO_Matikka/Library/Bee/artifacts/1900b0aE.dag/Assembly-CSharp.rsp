@@ -360,6 +360,8 @@
 "Assets/Resources/Scripts/Gizmos/RedDotGreenDot.cs"
 "Assets/Resources/Scripts/Gizmos/Vectors.cs"
 "Assets/Resources/Scripts/Gizmos/WorldToLocal.cs"
+"Assets/Resources/Scripts/Meshes/SimpleMesh.cs"
+"Assets/Resources/Scripts/Meshes/SphereMesh.cs"
 "Assets/Resources/Scripts/ProgressBar.cs"
 -langversion:9.0
 

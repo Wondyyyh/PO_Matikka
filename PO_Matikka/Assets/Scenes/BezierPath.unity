@@ -271,7 +271,7 @@ MonoBehaviour:
   B: {fileID: 149355782}
   C: {fileID: 1484422843}
   D: {fileID: 2117366913}
-  T: 0.539
+  T: 0.5
 --- !u!4 &758987939
 Transform:
   m_ObjectHideFlags: 0
