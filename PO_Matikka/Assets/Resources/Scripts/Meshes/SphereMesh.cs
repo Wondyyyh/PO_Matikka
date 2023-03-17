@@ -8,7 +8,7 @@ public class SphereMesh : MonoBehaviour
     //Julkiset Slideriarvot
     [Range(3, 255)]
     public int Segments = 8;
-    [Range(1, 10)]
+    [Range(0, 10)]
     public float innerRadius = 1.0f;
     [Range(1, 10)]
     public float thickness = 1.0f;
@@ -63,6 +63,7 @@ public class SphereMesh : MonoBehaviour
         List<Vector3> verts = new List<Vector3>();
         List<Vector3> normals = new List<Vector3>();
         List<int> tri_indices = new List<int>();
+        List<Vector2> uvs = new List<Vector2>(); // UV LISTA
 
         for (int i = 0; i < Segments; i++) //Pisteiden luonti
         {
@@ -71,9 +72,21 @@ public class SphereMesh : MonoBehaviour
             Vector2 dir = GetUnitVectorByAngle(angRad);
 
 
-            verts.Add(dir * innerRadius);
-            verts.Add(dir * OuterRadius);
-            normals.Add(Vector3.forward);
+            verts.Add(dir * innerRadius); //inner point
+            verts.Add(dir * OuterRadius); //Outer point
+
+            //Awesome UVS
+            Vector2 mid = new Vector2(0.5f, 0.5f);
+            Vector2 s = dir * 0.5f;
+            uvs.Add(mid + s*(innerRadius/OuterRadius)); //Inner UV
+            uvs.Add(mid + s); //Outer UV
+
+
+            //Not great uvs
+            //uvs.Add(new Vector2(i / (float)Segments, 0)); //Inner UV
+            //uvs.Add(new Vector2(i / (float)Segments, 1)); //Outer UV
+
+            normals.Add(Vector3.forward); //Normaalit
             normals.Add(Vector3.forward);
         }
 
@@ -98,6 +111,9 @@ public class SphereMesh : MonoBehaviour
         mesh.SetVertices(verts);
         mesh.SetTriangles(tri_indices, 0);
         mesh.SetNormals(normals);
+
+        //UV
+        mesh.SetUVs(0, uvs);
 
         GetComponent<MeshFilter>().sharedMesh = mesh;
     }
