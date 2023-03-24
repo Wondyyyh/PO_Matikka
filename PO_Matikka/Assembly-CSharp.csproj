@@ -70,6 +70,9 @@
     <Compile Include="Assets\Resources\Scripts\Gizmos\GizmosScript.cs" />
     <Compile Include="Assets\Resources\Scripts\BezierPath.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\Vectors.cs" />
+    <Compile Include="Assets\Resources\Scripts\BezierPoint.cs" />
+    <Compile Include="Assets\Resources\Scripts\BezierCirclePath.cs" />
+    <Compile Include="Assets\Resources\Scripts\Mesh2D.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
