@@ -53,7 +53,7 @@
     <UnityVersion>2021.3.16f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Resources\Scripts\BezierPoint.cs" />
@@ -69,11 +69,11 @@
     <Compile Include="Assets\Resources\Scripts\Gizmos\RedDotGreenDot.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\LookAtScript.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\WorldToLocal.cs" />
+    <Compile Include="Assets\Resources\Scripts\CarRoad.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\GizmosScript.cs" />
     <Compile Include="Assets\Resources\Scripts\BezierPath.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\Vectors.cs" />
     <Compile Include="Assets\Resources\Scripts\BezierCirclePath.cs" />
-    <Compile Include="Assets\Resources\Scripts\CarRoad.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
