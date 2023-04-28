@@ -13,7 +13,7 @@ public class CarRoad : MonoBehaviour
     [SerializeField]
     Mesh2D road2D;
 
-    [Range(0.0f, 1.0f)]
+    [Range(0.0f, 0.8f)]
     public float TValue = 0.0f;
 
     [Range(2, 100)]
@@ -30,6 +30,8 @@ public class CarRoad : MonoBehaviour
 
     private void OnDrawGizmos() //Bezier PATH
     {
+
+
         for (int i = 0; i < points.Length - 1; i++)
         {
             Handles.DrawBezier(points[i].Anchor.position,
@@ -48,9 +50,11 @@ public class CarRoad : MonoBehaviour
         Gizmos.DrawSphere(tPos, 0.3f);
 
         //Try to get the roation
-        Quaternion rot = Quaternion.LookRotation(tDir);
-        Handles.PositionHandle(tPos, rot);
+        //Quaternion rot = Quaternion.LookRotation(tDir);
+        //Handles.PositionHandle(tPos, rot);
 
+        Matrix4x4 t_mat = GetPositionFromBezierPath(TValue); // <--- autoposition calling
+        Handles.PositionHandle(t_mat.GetPosition(), t_mat.rotation);
 
         // Draw all parts of the bezier path
         for (int i = 0; i < points.Length - 1; i++)
@@ -123,7 +127,7 @@ public class CarRoad : MonoBehaviour
     {
         GenerateMesh();
         GetComponent<MeshFilter>().sharedMesh = mesh;
-        if(mesh == null ) { mesh  = new Mesh(); }
+        if (mesh == null) { mesh = new Mesh(); }
     }
 
     void GenerateMesh()
@@ -140,7 +144,7 @@ public class CarRoad : MonoBehaviour
         // Draw all parts of the bezier MESH
         for (int i = 0; i < points.Length - 1; i++)
         {
-            GenerateVerticesForBezierPart(points[i], points[i+1]);
+            GenerateVerticesForBezierPart(points[i], points[i + 1]);
             GenerateTringlesForBEzierPart(i);
         }
 
@@ -189,10 +193,6 @@ public class CarRoad : MonoBehaviour
         //How many lines
         int num_lines = road2D.lineIndices.Length / 2;
 
-
-       
-
-
     }
 
     private void GenerateTringlesForBEzierPart(int part)
@@ -200,7 +200,7 @@ public class CarRoad : MonoBehaviour
         int num_lines = road2D.lineIndices.Length / 2;
 
         // Siirtymä seuraavan palan kolmiohin
-        int offset = part * (Segments+1) * road2D.vertices.Length;
+        int offset = part * (Segments + 1) * road2D.vertices.Length;
         //Go through each but the last segment
         for (int n = 0; n < Segments; n++)
         {
@@ -231,6 +231,61 @@ public class CarRoad : MonoBehaviour
         }
     }
 
+
+    Matrix4x4 GetPositionFromBezierPath(float t ) // <--- Autolle positio tässä
+    {
+        //bool isclosed = true;
+        int first_index;
+        //if (!isclosed)
+        //first_index = (int)(t * (points.Length-1)) % (points.Length-1); 
+        //else
+        first_index = (int)(t * points.Length) % points.Length;
+
+
+
+        // tvalue for corresponding path part
+        float part_in_t = -1f;
+        float new_t_value;
+        //if (!isclosed)
+        //{
+
+        //    part_in_t = (1f / (float)points.Length -1); // one part in amount of t
+        //    new_t_value = (t - first_index * part_in_t) / part_in_t;
+        //}
+
+        //else
+        //{
+            part_in_t = (1f / (float)points.Length); // one part in amount of t
+            new_t_value = (t - first_index * part_in_t) / part_in_t;
+        //}
+
+
+        Vector3 pos;
+        Vector3 dir;
+        //if (!isclosed)
+        //{
+        //    pos = GetBezierPosition(new_t_value, points[first_index], points[first_index + 1]);
+        //    dir = GetBezierDirection(new_t_value, points[first_index], points[first_index + 1]);
+
+        //}
+
+        //else
+        //{
+            pos = GetBezierPosition(new_t_value, points[first_index], points[first_index + 1]);
+            dir = GetBezierDirection(new_t_value, points[first_index], points[first_index + 1]);
+        //}
+
+        //int second_index = first_index+1;
+        //if(first_index == points.Length)
+        //    second_index = 0;
+
+        Quaternion rot = Quaternion.LookRotation(pos, dir);
+
+        Matrix4x4 mat = Matrix4x4.identity;
+        mat.SetTRS(pos,rot, Vector3.one);
+
+        return mat;
+    }
     Vector3 GetBezierPosition(float t, BezierPoint bp1, BezierPoint bp2)
     {
         // 1st Lerp

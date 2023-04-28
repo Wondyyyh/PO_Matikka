@@ -74,10 +74,12 @@
     <Compile Include="Assets\Resources\Scripts\BezierPath.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\Vectors.cs" />
     <Compile Include="Assets\Resources\Scripts\BezierCirclePath.cs" />
+    <Compile Include="Assets\GeneratePlane.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Shaders\NewUnlitShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Shaders\WeightShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />

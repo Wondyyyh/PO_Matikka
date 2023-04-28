@@ -18,6 +18,7 @@ public class BezierCirclePath : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        
         for (int i = 0; i < points.Length - 1; i++) //<-- BEZIER LINE HERE
         {
             Handles.DrawBezier(points[i].Anchor.position,
