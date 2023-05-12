@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3460302208968425844}
+  - component: {fileID: 5859043425588621529}
   m_Layer: 0
   m_Name: AutoObj
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5859043425588621529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457940388112341004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5786bffde13c31140ada3741378b3355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tpos: 0
+  speed: 0
 --- !u!1001 &7073184827491160405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39,6 +54,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3460302208968425844}
     m_Modifications:
+    - target: {fileID: 6961584241923923499, guid: 44cea58d0b334974c998de2ef33eef93, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d2a3462b2b8c8df42a920792dd7723ee, type: 2}
     - target: {fileID: 8131160235517338948, guid: 44cea58d0b334974c998de2ef33eef93, type: 3}
       propertyPath: m_RootOrder
       value: 0

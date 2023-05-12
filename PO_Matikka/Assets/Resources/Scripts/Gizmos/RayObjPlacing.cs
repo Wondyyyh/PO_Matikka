@@ -20,11 +20,12 @@ public class RayObjPlacing : MonoBehaviour
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.white);
             Debug.Log("Did Hit" + hit.point);
+            PlaceObject();
         }
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.magenta);
-            Debug.Log("Did not Hit");
+            //Debug.Log("Did not Hit");
         }
 
         xAxel = hit.point + transform.right;

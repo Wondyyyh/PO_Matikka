@@ -53,28 +53,33 @@
     <UnityVersion>2021.3.16f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Resources\Scripts\BezierPoint.cs" />
+    <Compile Include="Assets\RadialTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\EasingFUnction.cs" />
     <Compile Include="Assets\Resources\Scripts\Mesh2D.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\RayObjPlacing.cs" />
     <Compile Include="Assets\Resources\Scripts\ProgressBar.cs" />
     <Compile Include="Assets\Resources\Scripts\Animate.cs" />
     <Compile Include="Assets\Resources\Scripts\Meshes\SimpleMesh.cs" />
+    <Compile Include="Assets\Resources\Scripts\Watcher.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\CrossProduct.cs" />
+    <Compile Include="Assets\CarScript.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\LocalCordinate.cs" />
     <Compile Include="Assets\Resources\Scripts\Meshes\SphereMesh.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\RedDotGreenDot.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\LookAtScript.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\WorldToLocal.cs" />
+    <Compile Include="Assets\Spectator_Script.cs" />
+    <Compile Include="Assets\LookAtTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\CarRoad.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\GizmosScript.cs" />
+    <Compile Include="Assets\GeneratePlane.cs" />
     <Compile Include="Assets\Resources\Scripts\BezierPath.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\Vectors.cs" />
     <Compile Include="Assets\Resources\Scripts\BezierCirclePath.cs" />
-    <Compile Include="Assets\GeneratePlane.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -357,12 +362,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Android.Types">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Android.Gradle">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -769,17 +768,11 @@
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Services.Core">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.dll</HintPath>
@@ -810,6 +803,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="UnityEditor.UI.csproj">
+      <Project>{E2C9C9DE-B16C-EF52-A092-718C75DCE8FE}</Project>
+      <Name>UnityEditor.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.UI.csproj">
+      <Project>{81387559-142E-731E-2291-D4A01855E088}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

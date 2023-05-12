@@ -10,8 +10,7 @@ public class RedDotGreenDot : MonoBehaviour
     public float length = 0;
 
     void OnDrawGizmos()
-    {
-        
+    {        
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
 
@@ -24,7 +23,6 @@ public class RedDotGreenDot : MonoBehaviour
         if (length > radius ) { Gizmos.color = Color.green; }
         else Gizmos.color = Color.red;
         Gizmos.DrawSphere(target.position, 0.2f);
-
     }
 
 }

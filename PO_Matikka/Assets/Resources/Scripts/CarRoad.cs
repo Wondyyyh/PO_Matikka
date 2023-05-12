@@ -13,8 +13,9 @@ public class CarRoad : MonoBehaviour
     [SerializeField]
     Mesh2D road2D;
 
-    [Range(0.0f, 0.8f)]
+    [Range(0.0f, 0.833f)]
     public float TValue = 0.0f;
+    //public float CarPosT;
 
     [Range(2, 100)]
     public int Segments = 2;
@@ -28,7 +29,19 @@ public class CarRoad : MonoBehaviour
     private List<Vector2> uvs = new List<Vector2>(); // uvs
     private List<int> tri_indices = new List<int>();
 
-    private void OnDrawGizmos() //Bezier PATH
+    public void MoveCar(float CarPosT, GameObject Car)
+    {
+        //Debug.Log(CarPosT);
+        Matrix4x4 carPos = GetPositionFromBezierPath(CarPosT);
+        Car.transform.position = carPos.GetPosition();
+
+        Vector3 carDir = GetPositionFromBezierPath(CarPosT + 0.001f).GetPosition() - Car.transform.position;
+        //Vector3 carDir = GetPositionFromBezierPath(CarPosT).GetPosition();
+        Quaternion carRot = Quaternion.LookRotation(carDir, Vector3.up);
+        Car.transform.rotation = carRot;
+    }
+
+    private void OnDrawGizmosSelected() //Bezier PATH
     {
 
 
@@ -50,29 +63,14 @@ public class CarRoad : MonoBehaviour
         Gizmos.DrawSphere(tPos, 0.3f);
 
         //Try to get the roation
-        //Quaternion rot = Quaternion.LookRotation(tDir);
+        Quaternion rot = Quaternion.LookRotation(tDir);
         //Handles.PositionHandle(tPos, rot);
-
-        Matrix4x4 t_mat = GetPositionFromBezierPath(TValue); // <--- autoposition calling
-        Handles.PositionHandle(t_mat.GetPosition(), t_mat.rotation);
 
         // Draw all parts of the bezier path
         for (int i = 0; i < points.Length - 1; i++)
         {
             DrawBezierPart(points[i], points[i + 1]);
-
         }
-
-
-        //for (int z = 0; z < points.Length; z++) //LOOP trough all points along the PATH
-        //{
-
-        //    // Get the index of the next point, wrapping around to the first point for the last point
-        //    int zNext = (z + 1) % points.Length;
-
-        //}
-
-
     }
 
     private void DrawBezierPart(BezierPoint point0, BezierPoint point1)
@@ -118,11 +116,6 @@ public class CarRoad : MonoBehaviour
         }
     }
 
-
-    //private void OnValidate()
-    //{
-    //    GenerateMesh();
-    //}
     private void Awake()
     {
         GenerateMesh();
@@ -132,11 +125,6 @@ public class CarRoad : MonoBehaviour
 
     void GenerateMesh()
     {
-        //for (int z = 0; z < points.Length - 1; z++) // <-- LOOP trough EVERY peace
-        //{
-        //    int zNext = (z + 1) % points.Length;
-        //}
-
         this.verts.Clear();
         this.uvs.Clear();
         this.tri_indices.Clear();
@@ -160,7 +148,6 @@ public class CarRoad : MonoBehaviour
         this.mesh.SetUVs(0, uvs);
         this.mesh.SetTriangles(tri_indices, 0);
         this.mesh.RecalculateNormals();
-
     }
 
     private void GenerateVerticesForBezierPart(BezierPoint point0, BezierPoint point1) //MESH Part
@@ -186,13 +173,10 @@ public class CarRoad : MonoBehaviour
                 uvs.Add(new Vector2(roadpoint.x / 10.0f + 0.5f, t)); //Add the corresponding UV-coord - hack hack
 
             }
-
         }
-
         // triangles //
         //How many lines
         int num_lines = road2D.lineIndices.Length / 2;
-
     }
 
     private void GenerateTringlesForBEzierPart(int part)
@@ -226,64 +210,32 @@ public class CarRoad : MonoBehaviour
                 tri_indices.Add(curr_second);
                 tri_indices.Add(next_first);
                 tri_indices.Add(next_second);
-
             }
         }
     }
 
 
-    Matrix4x4 GetPositionFromBezierPath(float t ) // <--- Autolle positio tässä
+    Matrix4x4 GetPositionFromBezierPath(float t) // <--- Autolle positio tässä
     {
-        //bool isclosed = true;
         int first_index;
-        //if (!isclosed)
-        //first_index = (int)(t * (points.Length-1)) % (points.Length-1); 
-        //else
         first_index = (int)(t * points.Length) % points.Length;
-
-
 
         // tvalue for corresponding path part
         float part_in_t = -1f;
         float new_t_value;
-        //if (!isclosed)
-        //{
-
-        //    part_in_t = (1f / (float)points.Length -1); // one part in amount of t
-        //    new_t_value = (t - first_index * part_in_t) / part_in_t;
-        //}
-
-        //else
-        //{
-            part_in_t = (1f / (float)points.Length); // one part in amount of t
-            new_t_value = (t - first_index * part_in_t) / part_in_t;
-        //}
-
+        part_in_t = (1f / (float)points.Length); // one part in amount of t
+        new_t_value = (t - first_index * part_in_t) / (part_in_t);
 
         Vector3 pos;
         Vector3 dir;
-        //if (!isclosed)
-        //{
-        //    pos = GetBezierPosition(new_t_value, points[first_index], points[first_index + 1]);
-        //    dir = GetBezierDirection(new_t_value, points[first_index], points[first_index + 1]);
 
-        //}
-
-        //else
-        //{
-            pos = GetBezierPosition(new_t_value, points[first_index], points[first_index + 1]);
-            dir = GetBezierDirection(new_t_value, points[first_index], points[first_index + 1]);
-        //}
-
-        //int second_index = first_index+1;
-        //if(first_index == points.Length)
-        //    second_index = 0;
+        pos = GetBezierPosition(new_t_value, points[first_index], points[first_index + 1]);
+        dir = GetBezierDirection(new_t_value, points[first_index], points[first_index + 1]);
 
         Quaternion rot = Quaternion.LookRotation(pos, dir);
 
         Matrix4x4 mat = Matrix4x4.identity;
-        mat.SetTRS(pos,rot, Vector3.one);
-
+        mat.SetTRS(pos, rot, Vector3.one);
         return mat;
     }
     Vector3 GetBezierPosition(float t, BezierPoint bp1, BezierPoint bp2)
