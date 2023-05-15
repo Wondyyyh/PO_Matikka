@@ -75,6 +75,7 @@
     <Compile Include="Assets\Spectator_Script.cs" />
     <Compile Include="Assets\LookAtTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\CarRoad.cs" />
+    <Compile Include="Assets\SpawnCrossProd.cs" />
     <Compile Include="Assets\Resources\Scripts\Gizmos\GizmosScript.cs" />
     <Compile Include="Assets\GeneratePlane.cs" />
     <Compile Include="Assets\Resources\Scripts\BezierPath.cs" />

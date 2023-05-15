@@ -372,6 +372,7 @@
 "Assets/Resources/Scripts/Meshes/SphereMesh.cs"
 "Assets/Resources/Scripts/ProgressBar.cs"
 "Assets/Resources/Scripts/Watcher.cs"
+"Assets/SpawnCrossProd.cs"
 "Assets/Spectator_Script.cs"
 -langversion:9.0
 
